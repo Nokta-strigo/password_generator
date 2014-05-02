@@ -13,6 +13,7 @@ chars = '`1234567890-=\\~!@#$%^&*()_+|qwertyuiop[]QWERTYUIOP{}asdfghjkl;\'ASDFGH
 
 
 def convert_from_bin_to_string(bin_str):
+    """Generates a text password from bytes. The last char in password can be less random."""
     rand_l = 0
     for i in bin_str:
         rand_l = rand_l * 256 + i
@@ -53,9 +54,13 @@ def calc_site_pwd(version, site, login, master_password):
     return convert_from_bin_to_string(h2)[:24]
 
 
+def get_master_password_fingerpring(master_password):
+    return hashlib.sha512(master_password.encode()).hexdigest()[:4]
+
+
 def generate_site_pwd():
     master_password = getpass.getpass('Enter master password')
-    print("Pass fingerprint = %s" % hashlib.sha512(master_password.encode()).hexdigest()[:4])
+    print("Pass fingerprint = %s" % get_master_password_fingerpring(master_password))
     print("version")
     ok = False
     while not ok:
@@ -89,8 +94,5 @@ def generate_random_pwd():
     h2 = hashlib.sha1(h1 + s2).digest()
     print(convert_from_bin_to_string(h2)[:24])
 
-print("%u\t%u" % (len(chars)))
-#generate_site_pwd()
-#p = getpass.getpass('Enter')
-#print(hashlib.sha512(p.encode("utf-8")).hexdigest()[:4])
-#print(hashlib.sha1((p+'\n').encode()).hexdigest()[:4])
+generate_site_pwd()
+

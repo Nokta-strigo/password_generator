@@ -1,11 +1,6 @@
-This password generator creates strong passwords, which are unique for every account. With this generator you have
-to remember only one password - your master password. All other passwords can be generated from it on any computer
-(until there's no keyloggers on it), and even if someone gets access to some of your passwords, generated with this
+This password generator creates strong passwords, which are unique for every account. With this generator you have to remember only one password - your master password. All other passwords can be generated from it on any computer (until there's no keyloggers on it), and even if someone gets access to some of your passwords, generated with this
 program, it won't give him any hint about your other passwords.
 It doesn't store any information anywhere. You can download the code from here to any computer, enter your master
 password, site, login and version of the password and get your passwords.
-The program asks you master password, site name, version of password for this site (if you want a new password for some
-site - just enter next version number) and login, and then it prints you 24 characters long pseudo random password. When
-you need this password next time, you just enter the same information and get the same password.
-Since the only thing you have to remember is one password, make sure it's strong enough. You can generate strong random
-password with the same program with -r argument.
+The program asks you master password, site name, version of password for this site (if you want a new password for some site - just enter next version number) and login, and then it prints you 24 characters long pseudo random password. When you need this password next time, you just enter the same information and get the same password.
+Since the only thing you have to remember is one password, make sure it's strong enough. You can generate strong random password with the same program with -r argument.

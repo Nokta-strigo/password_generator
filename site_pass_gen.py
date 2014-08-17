@@ -116,6 +116,7 @@ def generate_random_pwd():
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == '-r':
         generate_random_pwd()
+        input("Press Ctrl+C or Enter to exit")
     elif len(sys.argv) > 1 and sys.argv[1] == '-h':
         print("site_pass_gen.py [argument]\nArgument can be one of following:\n-h prints this help\n-r generates random "
               "password\n-m lets you generate many passwords from one master password.\nno argument - generates one "
@@ -130,6 +131,7 @@ if __name__ == '__main__':
     else:
         try:
             generate_site_pwd_once()
+            input("Press Ctrl+C or Enter to exit")
         except KeyboardInterrupt:
             print("\tExiting")
             Finished = True

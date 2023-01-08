@@ -24,10 +24,14 @@ import os
 import random
 import getpass
 
-chars = '`1234567890-=\\~!@#$%^&*()_+|qwertyuiop[]QWERTYUIOP{}asdfghjkl;\'ASDFGHJKL:"zxcvbnm,./ZXCVBNM<>? '
+charsets = ['`1234567890-=\\~!@#$%^&*()_+|qwertyuiop[]QWERTYUIOP{}asdfghjkl;\'ASDFGHJKL:"zxcvbnm,./ZXCVBNM<>? ',
+        list('1234567890qwertyuiopQWERTYUIOPasdfghjklASDFGHJKLzxcvbnmZXCVBNM')]
+charsets[1].sort()
+charsets[1] = ''.join(charsets[1])
 
-def convert_from_bin_to_string(bin_str):
+def convert_from_bin_to_string(bin_str, charset):
     """Generates a text password from bytes. The last chars in password are less random."""
+    chars = charsets[charset]
     rand_l = 0
     for i in bin_str:
         rand_l = rand_l * 256 + i
@@ -43,7 +47,7 @@ def ver2str(version):
         s += str(i)
     return s
 
-def calc_site_pwd(version, site, login, master_password):
+def calc_site_pwd(version, site, login, master_password, charset=0):
     """Generates site-specific password from the master password.
     version - integer, used for changing password for specific site
     site - name of the site
@@ -63,7 +67,7 @@ def calc_site_pwd(version, site, login, master_password):
     h1 = hashlib.sha512(s.encode("utf-8")).hexdigest()
     h1 = ver2str(version) + h1 + site
     h2 = hashlib.new("ripemd160", h1.encode('utf-8')).digest()
-    return convert_from_bin_to_string(h2)[:24]
+    return convert_from_bin_to_string(h2, charset)[:24]
 
 def get_master_password_fingerprint(master_password):
     return hashlib.sha512(master_password.encode()).hexdigest()[:4]
@@ -85,7 +89,8 @@ def generate_site_pwd(master_password):
     site = sys.stdin.readline()
     print("login")
     login = sys.stdin.readline()
-    print(calc_site_pwd(version, site, login, master_password))
+    print(calc_site_pwd(version, site, login, master_password, 0))
+    print(calc_site_pwd(version, site, login, master_password, 1))
 
 def generate_site_pwd_once():
     master_password = getpass.getpass('Enter master password')

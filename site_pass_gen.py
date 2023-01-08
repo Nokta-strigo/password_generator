@@ -116,7 +116,8 @@ def generate_random_pwd():
     i1 = random.randint(0, 31)
     s2 = os.urandom(i1 + 31)
     h2 = hashlib.sha1(h1 + s2).digest()
-    print(convert_from_bin_to_string(h2)[:20])
+    print(convert_from_bin_to_string(h2, 0)[:20])
+    print(convert_from_bin_to_string(h2, 1)[:20])
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == '-r':
